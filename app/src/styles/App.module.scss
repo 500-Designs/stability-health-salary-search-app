@@ -1,0 +1,31 @@
+@import "fonts";
+
+.App {
+  section {
+    padding: 80px 30px;
+    .container {
+      max-width: 945px;
+      margin: 0 auto;
+    }
+  }
+  & :global {
+    .narrow {
+      max-width: 580px;
+      margin: 0 auto 30px;
+    }
+  }
+}
+
+p {
+  font-size: 20px;
+}
+
+.top {
+  background-color: #dff4ef;
+  text-align: center;
+}
+
+.bottom {
+  background-color: white;
+}
+

@@ -34,3 +34,71 @@ $app_css = plugin_dir_url(__FILE__) . 'app/build/static/css/' . array_shift($app
 
 wp_enqueue_script('sh-salary-search-app', $app_js, array(), '1.0.0', true);
 wp_enqueue_style('sh-salary-search-app', $app_css, array(), '1.0.0');
+
+
+function php_array_to_js($array, $name = 'phpData') {
+    $js_code = "<!-- php_array_to_js " . $name . " -->";
+    $js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
+    echo $js_code;
+}
+
+
+// Make a GET request to the API URL
+$response = wp_remote_get( 'https://stabilityhealthcare.com/budenurse/form/all-options' );
+
+// Check for errors
+if ( is_wp_error( $response ) ) {
+    // Handle the error
+    $error_message = $response->get_error_message();
+    echo "Something went wrong: $error_message";
+} else {
+    // Decode the JSON data
+    $allOptions = json_decode( wp_remote_retrieve_body( $response ), true );
+
+    // Use the data as needed
+    // print_r( $data );
+}
+
+
+// php_array_to_js([$allOptions['data']], "shData");
+
+// WP ENDPOINT for all Options
+
+add_action( 'wp_ajax_sh_all_options', 'sh_all_options_handler' );
+add_action( 'wp_ajax_nopriv_sh_all_options', 'sh_all_options_handler' );
+
+function sh_all_options_handler() {
+  $response = wp_remote_get( 'https://stabilityhealthcare.com/budenurse/form/all-options' );
+
+  if ( is_wp_error( $response ) ) {
+    wp_send_json_error( $response->get_error_message() );
+    return;
+  }
+
+  $data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+  wp_send_json( $data );
+}
+
+// WP ENDPOINT for all Jobs
+
+add_action( 'wp_ajax_sh_jobs', 'sh_jobs_handler' );
+add_action( 'wp_ajax_nopriv_sh_jobs', 'sh_jobs_handler' );
+
+function sh_jobs_handler() {
+  $clinical_unit = sanitize_text_field( $_GET['clinical_unit'] );
+  $city_state = sanitize_text_field( $_GET['city_state'] );
+
+  $url = "https://stabilityhealthcare.com/budenurse/jobs/list?clinical_unit=$clinical_unit&city_state=$city_state";
+
+  $response = wp_remote_get( $url );
+
+  if ( is_wp_error( $response ) ) {
+    wp_send_json_error( $response->get_error_message() );
+    return;
+  }
+
+  $data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+  wp_send_json( $data );
+}

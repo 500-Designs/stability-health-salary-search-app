@@ -1,0 +1,18 @@
+.SearchResults {
+  .view-all {
+    background: #6a57b6;
+    color: white;
+    border-radius: 100px 100px 100px 100px;
+    padding: 14px 24px 14px 24px;
+    border: none;
+    outline: none;
+    margin: 0 0 0 auto;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      background: #30253f;
+    }
+  }
+  & :global {
+  }
+}
