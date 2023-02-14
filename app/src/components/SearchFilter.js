@@ -45,7 +45,7 @@ function SearchFilter({ professions, specialties, professionId, setProfessionId,
             <option value={item.abbreviation} key={index}>{item.name}</option>
           )}
         </select>
-        <button onClick={handleSubmit}>Search <i>Icon</i></button>
+        <button className="button" onClick={handleSubmit}>Search <i aria-hidden="true" className="icon icon-search"></i></button>
     </div>
   );
 }

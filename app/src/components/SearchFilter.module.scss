@@ -6,9 +6,13 @@
   border-radius: 100px 100px 100px 100px;
   box-shadow: 0px 4px 37px 0px rgb(11 6 30 / 16%);
   background: white;
+  align-items: center;
   input {
     font-family: "Neue Haas Unica", Sans-serif;
     color: #265573;
+  }
+  button {
+    margin: 0 0 0 auto;
   }
   & :global {
     select {
@@ -18,49 +22,40 @@
         font-size: 18px;
       }
     }
-    button {
-      background: #6a57b6;
-      color: white;
-      border-radius: 100px 100px 100px 100px;
-      padding: 14px 24px 14px 24px;
+    select {
+      background-image: url('../../public/images/dropdown.svg');
+      background-repeat: no-repeat;
+      background-position: center right;
       border: none;
-      outline: none;
-      margin: 0 0 0 auto;
-      cursor: pointer;
-      &:hover, &:focus {
-        background: #30253F;
+      appearance: none;
+      border-right: 1px solid #9DABB4;
+      color: #93AAB9;
+      padding: 0px 10px;
+      background-position: 95% center;
+      height: 35px;
+      font-size: 18px;
+      max-width: 250px;
+      &:nth-child(1) {
+        /* max-width: 200px; */
+      }
+    }
+    @media (max-width: 1024px) {
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 30px;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      select {
+        border: none;
+        border-bottom: 1px solid #9DABB4;
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+      }
+      button {
+        margin: 0;
       }
     }
   }
-}
-.label {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.search__input {
-  padding: 10px;
-  margin: 10px 0;
-  width: 300px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-.contact__container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.contact__item {
-  margin: 5px 0;
-  font-size: 16px;
-}
-
-.bold {
-  font-weight: bold;
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchResults from "./components/SearchResults";
 import SearchFilter from "./components/SearchFilter";
 import JSONViewer from "./components/JSONViewer";
+import allOptions from "./components/all-options.json";
 
 // const wpUrl = process.env.NODE_ENV === 'local' ?
 //   process.env.LOCAL_WP_URL :
@@ -15,7 +16,9 @@ import JSONViewer from "./components/JSONViewer";
 const wpUrl = "https://stability-health.local";
 
 export default function App() {
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(allOptions.data);
+  
+  console.log("APP init: ", options);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +26,7 @@ export default function App() {
   const [professionId, setProfessionId] = useState(2);
   const [specialties, setSpecialties] = useState([]);
 
-  const [professionClinicalUnits, setProfessionClinicalUnits] = useState([]);
+  const [professionClinicalUnits, setProfessionClinicalUnits] = useState(allOptions.data.professionClinicalUnits);
 
   const [clininicalUnit, setclininicalUnit] = useState("");
   const [cityState, setCityState] = useState("");
@@ -51,22 +54,35 @@ export default function App() {
   }, [options, professionClinicalUnits, professionId]);
 
   useEffect(() => {
-    const getData = async (clinical_unit, city_state) => {
+    const reloadOptions = async () => {
+      console.log("reloadOptions...");
       try {
         const res1 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_all_options`
         );
-        setOptions(res1.data.data);
         if (res1.data.data.professionClinicalUnits) {
+          setOptions(res1.data.data);
           setProfessionClinicalUnits(res1.data.data.professionClinicalUnits);
         }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        // console.log(res1.data.data);
+    if (queryParams.specialtyId || queryParams.stateCode) {
+      reloadOptions();
+    }
 
+  }, [queryParams]);
+
+  useEffect(() => {
+    const getData = async (clinical_unit, city_state) => {
+      try {
         const res2 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_jobs&clinical_unit=${clinical_unit}&city_state=${city_state}`
         );
-        // setData(res2.data.data.jobs);
         console.log(res2.data.data);
         setData(res2.data.data.jobs.data);
       } catch (e) {
@@ -80,14 +96,9 @@ export default function App() {
 
     return () => {
       setLoading(true);
-      setOptions(null);
       setData(null);
     };
   }, [clininicalUnit, cityState]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className={s.App} id="SHAppWrapper">
@@ -99,8 +110,9 @@ export default function App() {
               Our transparency policy that shows salaries upfront empowers
               clinicians to attain market-leading pay rates.
             </p>
+            <h3 className="heading">Find Salaries</h3>
           </div>
-          {options.professionClinicalUnits && (
+          {professionClinicalUnits && (
             <SearchFilter
               professions={options.professionClinicalUnits}
               specialties={specialties}
@@ -115,7 +127,7 @@ export default function App() {
 
       <section className={s.bottom}>
         <div className={s.container}>
-          <SearchResults data={data} />
+          <SearchResults data={data} loading={loading}/>
         </div>
       </section>
     </div>

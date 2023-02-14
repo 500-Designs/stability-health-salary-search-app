@@ -4,7 +4,7 @@
  * Plugin Name: SH Salary Search
  * Description: A custom Elementor widget that utliizes Stability Health API for searching salaries"
  * Version: 1.0
- * Author: James
+ * Author: James500Dev
  */
 
 // Exit if accessed directly
@@ -36,11 +36,11 @@ wp_enqueue_script('sh-salary-search-app', $app_js, array(), '1.0.0', true);
 wp_enqueue_style('sh-salary-search-app', $app_css, array(), '1.0.0');
 
 
-function php_array_to_js($array, $name = 'phpData') {
-    $js_code = "<!-- php_array_to_js " . $name . " -->";
-    $js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
-    echo $js_code;
-}
+// function php_array_to_js($array, $name = 'phpData') {
+//     $js_code = "<!-- php_array_to_js " . $name . " -->";
+//     $js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
+//     echo $js_code;
+// }
 
 
 // Make a GET request to the API URL
@@ -48,22 +48,16 @@ $response = wp_remote_get( 'https://stabilityhealthcare.com/budenurse/form/all-o
 
 // Check for errors
 if ( is_wp_error( $response ) ) {
-    // Handle the error
     $error_message = $response->get_error_message();
     echo "Something went wrong: $error_message";
 } else {
-    // Decode the JSON data
     $allOptions = json_decode( wp_remote_retrieve_body( $response ), true );
-
-    // Use the data as needed
-    // print_r( $data );
 }
 
 
-// php_array_to_js([$allOptions['data']], "shData");
+
 
 // WP ENDPOINT for all Options
-
 add_action( 'wp_ajax_sh_all_options', 'sh_all_options_handler' );
 add_action( 'wp_ajax_nopriv_sh_all_options', 'sh_all_options_handler' );
 

@@ -1,6 +1,7 @@
 @import "fonts";
 
 .App {
+  color: #265573;
   section {
     padding: 80px 30px;
     .container {
@@ -23,6 +24,21 @@ p {
 .top {
   background-color: #dff4ef;
   text-align: center;
+  h2, h3 {
+    font-family: "TT Ramilas", Sans-serif;
+    color: #0c2c41;
+  }
+  h2 {
+    font-size: 60px !important;
+    margin: 0 0 20px 0;
+  }
+  h3 {
+    font-size: 24px !important;
+    margin: 30px 0 20px 0;
+  }
+  p {
+    margin: 0;
+  }
 }
 
 .bottom {
