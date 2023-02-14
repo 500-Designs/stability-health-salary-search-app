@@ -19,8 +19,6 @@ function register_custom_widget_final() {
 add_action('elementor/widgets/widgets_registered', 'register_custom_widget_final');
 
 
-wp_enqueue_script('sh-salary-search-script', plugin_dir_url(__FILE__) . 'js/sh-salary-search.js', ['jquery'], '1.0.0', true);
-
 $dir = plugin_dir_path(__FILE__) . 'app/build/static/js/';
 $files = scandir($dir);
 $app_js = preg_grep('/^main\..*\.js$/', $files);

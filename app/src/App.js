@@ -18,8 +18,6 @@ const wpUrl = "https://stability-health.local";
 export default function App() {
   const [options, setOptions] = useState(allOptions.data);
   
-  console.log("APP init: ", options);
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
