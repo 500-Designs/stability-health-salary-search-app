@@ -19,6 +19,11 @@ body {
   outline: none;
   cursor: pointer;
   font-size: 18px;
+  align-items: center;
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
+  line-height: 1em;
   &:hover, &:focus {
     background: #30253F;
   }

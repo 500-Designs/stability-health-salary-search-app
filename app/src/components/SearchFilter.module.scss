@@ -29,15 +29,20 @@
       border: none;
       appearance: none;
       border-right: 1px solid #9DABB4;
-      color: #93AAB9;
+      
       padding: 0px 10px;
       background-position: 95% center;
       height: 35px;
       font-size: 18px;
       max-width: 250px;
       border-radius: 0;
-      &:nth-child(1) {
-        /* max-width: 200px; */
+      color: #93AAB9;
+      &.has-value {
+        color: #265573;
+      }
+      &:focus-visible, &:focus {
+        border: none;
+        outline: none;
       }
     }
     @media (max-width: 1024px) {

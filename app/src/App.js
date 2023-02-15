@@ -6,22 +6,21 @@ import SearchFilter from "./components/SearchFilter";
 import JSONViewer from "./components/JSONViewer";
 import allOptions from "./components/all-options.json";
 
-// const wpUrl = process.env.NODE_ENV === 'local' ?
-//   process.env.LOCAL_WP_URL :
-//   // process.env.NODE_ENV === 'development' ?
-//   //   process.env.DEV_WP_URL :
-//   process.env.NODE_ENV === 'production' ?
-//     process.env.PROD_WP_URL :
-//     "https://stability-health.local";
-const wpUrl = "https://stability-health.local";
+// const wpUrl = "https://stabhealthdev.wpengine.com";
+
 
 export default function App() {
+  let wpUrl = window.location.origin;
+  if (wpUrl === "http://localhost:3000") {
+    wpUrl = "https://stability-health.local";
+  }
+
   const [options, setOptions] = useState(allOptions.data);
   
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [professionId, setProfessionId] = useState(2);
+  const [professionId, setProfessionId] = useState(null);
   const [specialties, setSpecialties] = useState([]);
 
   const [professionClinicalUnits, setProfessionClinicalUnits] = useState(allOptions.data.professionClinicalUnits);
