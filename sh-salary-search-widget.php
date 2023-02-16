@@ -34,13 +34,6 @@ wp_enqueue_script('sh-salary-search-app', $app_js, array(), '1.0.0', true);
 wp_enqueue_style('sh-salary-search-app', $app_css, array(), '1.0.0');
 
 
-// function php_array_to_js($array, $name = 'phpData') {
-//     $js_code = "<!-- php_array_to_js " . $name . " -->";
-//     $js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
-//     echo $js_code;
-// }
-
-
 // Make a GET request to the API URL
 $response = wp_remote_get( 'https://stabilityhealthcare.com/budenurse/form/all-options' );
 

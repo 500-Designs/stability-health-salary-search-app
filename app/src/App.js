@@ -4,33 +4,38 @@ import axios from "axios";
 import SearchResults from "./components/SearchResults";
 import SearchFilter from "./components/SearchFilter";
 import JSONViewer from "./components/JSONViewer";
-import allOptions from "./components/all-options.json";
 
 // const wpUrl = "https://stabhealthdev.wpengine.com";
 
 
 export default function App() {
+
+  const shLocation = window.shLocation;
+  const shClinicalUnits = window.shClinicalUnits;
+  const shProfessionClinicalUnits = window.shProfessionClinicalUnits;
+  const shAllOPtions = window.shAllOPtions;
+
   let wpUrl = window.location.origin;
   if (wpUrl === "http://localhost:3000") {
     wpUrl = "https://stability-health.local";
   }
 
-  const [options, setOptions] = useState(allOptions.data);
+  const [options, setOptions] = useState(shAllOPtions || []);
   
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [professionId, setProfessionId] = useState(null);
-  const [specialties, setSpecialties] = useState([]);
+  const [specialties, setSpecialties] = useState(shClinicalUnits || null);
 
-  const [professionClinicalUnits, setProfessionClinicalUnits] = useState(allOptions.data.professionClinicalUnits);
+  const [professionClinicalUnits, setProfessionClinicalUnits] = useState(shProfessionClinicalUnits || []);
 
   const [clininicalUnit, setclininicalUnit] = useState("");
-  const [cityState, setCityState] = useState("");
+  const [cityState, setCityState] = useState(shLocation || "");
 
   const [queryParams, setQueryParams] = useState({
     specialtyId: "",
-    stateCode: "",
+    stateCode: cityState || "",
   });
 
   useEffect(() => {
@@ -42,7 +47,7 @@ export default function App() {
     const getSpecialties = (id) => {
       const res = professionClinicalUnits[id-1];
       // const res = professionClinicalUnits.filter((item) => item.id === id);
-      return res ? res.specialties : null;
+      return res ? res.specialties : shClinicalUnits;
     };
 
     if (options && professionClinicalUnits) {
@@ -50,9 +55,10 @@ export default function App() {
     }
   }, [options, professionClinicalUnits, professionId]);
 
+
   useEffect(() => {
+    // refetch options from API
     const reloadOptions = async () => {
-      console.log("reloadOptions...");
       try {
         const res1 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_all_options`
@@ -80,7 +86,6 @@ export default function App() {
         const res2 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_jobs&clinical_unit=${clinical_unit}&city_state=${city_state}`
         );
-        console.log(res2.data.data);
         setData(res2.data.data.jobs.data);
       } catch (e) {
         console.log(e);

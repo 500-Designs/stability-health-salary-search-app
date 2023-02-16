@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) {
 }
 
 function php_array_to_js($array, $name = 'phpData') {
-    $js_code = "<!-- php_array_to_js " . $name . " -->";
-    $js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
-    echo $js_code;
+	$js_code = "<!-- php_array_to_js " . $name . " -->";
+	$js_code .= '<script>var ' . $name . ' = ' . json_encode($array) . ';</script>';
+	echo $js_code;
 }
 
 
@@ -39,16 +39,22 @@ class SH_Salary_Search_Widget extends \Elementor\Widget_Base {
 	// What your widget displays on the front-end
 	protected function render() {
 
-		$response = wp_remote_get( 'https://stabilityhealthcare.com/budenurse/form/all-options' );
+		$response = wp_remote_get('https://stabilityhealthcare.com/budenurse/form/all-options');
 
-		if ( is_wp_error( $response ) ) {
-		  wp_send_json_error( $response->get_error_message() );
-		  return;
+		if (is_wp_error($response)) {
+			wp_send_json_error($response->get_error_message());
+			return;
 		}
-	  
-		$data = json_decode( wp_remote_retrieve_body( $response ), true );
-	
-		php_array_to_js( $data['data']['professionClinicalUnits'], 'AllOptions' );
+
+		$data = json_decode(wp_remote_retrieve_body($response), true);
+
+		php_array_to_js($data['data']['clinicalUnits'], 'shClinicalUnits');
+		php_array_to_js($data['data']['professions'], 'shProfessions');
+		php_array_to_js($data['data']['professionClinicalUnits'], 'shProfessionClinicalUnits');
+		php_array_to_js($data['data'], 'shAllOPtions');
+
+		$location = isset($_GET['location']) ? $_GET['location'] : '';
+		php_array_to_js( $location, 'shLocation');
 
 		$settings = $this->get_settings_for_display();
 

@@ -8,11 +8,11 @@ function SearchFilter({ professions, specialties, professionId, setProfessionId,
 
 
   const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
+  const [value3, setValue3] = useState(queryParams.stateCode || "");
   
   const handleSubmit = () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
     setQueryParams({
-      // professionId: professionId,
       specialtyId: value2,
       stateCode: value3,
     });
@@ -20,23 +20,23 @@ function SearchFilter({ professions, specialties, professionId, setProfessionId,
 
   return (
     <div className={s.SearchFilter}>
-        <select value={professionId} className={professionId ? 'has-value' : ''} onChange={(e) => {
+        <select value={professionId || "" } className={professionId ? 'has-value' : ''} onChange={(e) => {
           setProfessionId(e.target.value);
         }}>
-          <option value="">Select Profession</option>
+          <option value="">All Professions</option>
           {professions.map((item, index) => 
             <option value={item.id} key={index}>{item.name}</option>
           )}
         </select>
-        <select value={value2} className={value2 ? 'has-value' : ''} onChange={(e) => setValue2(e.target.value)}>
-          <option value="">Select Specialty</option>
+        <select value={value2 || ""} className={value2 ? 'has-value' : ''} onChange={(e) => setValue2(e.target.value)}>
+          <option value="">All Specialties</option>
           {specialties && 
             specialties.map((item, index) => 
               <option value={item.value} key={index}>{item.text}</option>
             )
           }
         </select>
-        <select value={value3} className={value3 ? 'has-value' : ''} onChange={(e) => setValue3(e.target.value)}>
+        <select value={value3 || ""} className={value3 ? 'has-value' : ''} onChange={(e) => setValue3(e.target.value)}>
           <option value="">Select Location</option>
           {filtersData.us_states.map((item, index) => 
             <option value={item.abbreviation} key={index}>{item.name}</option>
