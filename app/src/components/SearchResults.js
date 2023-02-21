@@ -4,7 +4,7 @@ import s from "./SearchResults.module.scss";
 function SearchResults({ data }) {
   return (
     <div className={s.SearchResults}>
-      <h5>
+      <h5 style={{display: "block"}}>
         <b>All Professions</b> working in <b>All Specialties Salary</b> in{" "}
         <b>All States</b>
       </h5>
