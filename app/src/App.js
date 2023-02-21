@@ -84,8 +84,8 @@ export default function App() {
 
   useEffect(() => {
     const getData = async (clinical_unit, city_state) => {
-      setLoading(true);
       try {
+        setLoading(true);
         const res2 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_jobs&clinical_unit=${clinical_unit}&city_state=${city_state}`
         );
@@ -93,7 +93,9 @@ export default function App() {
         console.log("getData done: ", res2.data.data.jobs.data);
       } catch (e) {
         console.log(e);
+        setData(null);
       } finally {
+        console.log("setLoading FALSE");
         setLoading(false);
       }
     };
@@ -133,7 +135,11 @@ export default function App() {
 
       <section className={s.bottom}>
         <div className={s.container}>
-          <SearchResults data={data} loading={loading}/>
+          {(loading && data) ?
+            <div className="animated-loader"></div>
+            :
+            <SearchResults data={data} loading={loading}/>
+          }
         </div>
       </section>
     </div>

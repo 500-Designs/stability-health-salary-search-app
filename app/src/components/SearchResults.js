@@ -1,8 +1,7 @@
 import React from "react";
 import s from "./SearchResults.module.scss";
 
-function SearchResults({ data }) {
-  console.log("SearchResults: ", data);
+function SearchResults({ data, loading }) {
   return (
     <div className={s.SearchResults}>
       <h5 style={{ display: "block" }}>
@@ -20,17 +19,16 @@ function SearchResults({ data }) {
           </tr>
         </thead>
         <tbody>
-          {data ?
+          {loading ?
+            <tr><td colSpan="5"><div className="animated-loader"></div></td></tr>
+            :
             (data.length ?
-
               data.map((item, index) => (
                 <DataRow itemData={item} key={index} />
               ))
               :
               <tr><td colSpan="5" style={{textAlign: "center"}}>No jobs found for selected filter...</td></tr>
             )
-            :
-            <tr><td colSpan="5"><div className="animated-loader"></div></td></tr>
           }
         </tbody>
       </table>
