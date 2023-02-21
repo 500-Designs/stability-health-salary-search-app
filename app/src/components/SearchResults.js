@@ -1,46 +1,43 @@
 import React from "react";
 import s from "./SearchResults.module.scss";
 
-function SearchResults({ data, loading }) {
+function SearchResults({ data }) {
   return (
     <div className={s.SearchResults}>
       <h5>
         <b>All Professions</b> working in <b>All Specialties Salary</b> in{" "}
         <b>All States</b>
       </h5>
-      {loading ? (
-        <div className="animated-loader"></div>
-      ) : (
-        <>
-          <table>
-            <thead>
-              <tr>
-                <th>Job Title</th>
-                <th>Profession</th>
-                <th>Location</th>
-                <th>Pay Rate</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data &&
-                data.map((item, index) => (
-                  <DataRow itemData={item} key={index} />
-                ))}
-            </tbody>
-          </table>
-          <div>
-            <a
-              className="view-all button"
-              href="https://stabilityhealthcare.com/travel-nursing/jobs"
-              target={"_blank"}
-              rel="noreferrer"
-            >
-              View All Jobs
-            </a>
-          </div>
-        </>
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Profession</th>
+            <th>Location</th>
+            <th>Pay Rate</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data ?
+            (data.map((item, index) => (
+              <DataRow itemData={item} key={index} />
+            )))
+            :
+            <tr><td colSpan="5"><div className="animated-loader"></div></td></tr>
+          }
+        </tbody>
+      </table>
+      <div>
+        <a
+          className="view-all button"
+          href="https://stabilityhealthcare.com/travel-nursing/jobs"
+          target={"_blank"}
+          rel="noreferrer"
+        >
+          View All Jobs
+        </a>
+      </div>
     </div>
   );
 }
