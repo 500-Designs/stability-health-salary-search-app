@@ -6,6 +6,7 @@ import filtersData from "./filters.json";
 
 function SearchFilter({ professions, specialties, professionId, setProfessionId, queryParams, setQueryParams }) {
 
+  const specialtiesList = specialties || filtersData.specialties;
 
   const [value2, setValue2] = useState("");
   const [value3, setValue3] = useState(queryParams.stateCode || "");
@@ -31,8 +32,8 @@ function SearchFilter({ professions, specialties, professionId, setProfessionId,
         </select>
         <select value={value2 || ""} className={value2 ? 'has-value' : ''} onChange={(e) => setValue2(e.target.value)}>
           <option value="">All Specialties</option>
-          {specialties && 
-            specialties.map((item, index) => 
+          {specialtiesList && 
+            specialtiesList.map((item, index) => 
               <option value={item.value} key={index}>{item.text}</option>
             )
           }
