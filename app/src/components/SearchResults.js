@@ -22,7 +22,7 @@ function SearchResults({ data, loading }) {
           {loading ?
             <tr><td colSpan="5"><div className="animated-loader"></div></td></tr>
             :
-            (data.length ?
+            (data ?
               data.map((item, index) => (
                 <DataRow itemData={item} key={index} />
               ))

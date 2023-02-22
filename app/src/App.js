@@ -67,7 +67,6 @@ export default function App() {
         if (res1.data.data.professionClinicalUnits) {
           setOptions(res1.data.data);
           setProfessionClinicalUnits(res1.data.data.professionClinicalUnits);
-          console.log("reloadOptions done: ", res1.data.data);
         }
       } catch (e) {
         console.log(e);
@@ -90,12 +89,10 @@ export default function App() {
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_jobs&clinical_unit=${clinical_unit}&city_state=${city_state}`
         );
         setData(res2.data.data.jobs.data);
-        console.log("getData done: ", res2.data.data.jobs.data);
       } catch (e) {
         console.log(e);
         setData(null);
       } finally {
-        console.log("setLoading FALSE");
         setLoading(false);
       }
     };
