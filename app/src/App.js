@@ -52,9 +52,9 @@ export default function App() {
     let specialtyName = "";
 
     if (professionClinicalUnits && professionId) {
-      const found = professionClinicalUnits.find(item => item.value === parseInt(professionId));
+      const found = professionClinicalUnits.find(item => item.id === parseInt(professionId));
       if (found) {
-        professionName = found.text;
+        professionName = found.name;
       }
     }
 
@@ -77,7 +77,7 @@ export default function App() {
   useEffect(() => {
     const getSpecialties = (id) => {
       const res = professionClinicalUnits[id-1];
-      return res ? res.clinical_units : shClinicalUnits;
+      return res ? res.specialties : shClinicalUnits;
     };
 
     if (options && professionId > 0) {
@@ -93,6 +93,7 @@ export default function App() {
         const res1 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_all_options`
         );
+        console.log(res1.data.data);
         if (res1.data.data.professionClinicalUnits) {
           setOptions(res1.data.data);
           setProfessionClinicalUnits(res1.data.data.professionClinicalUnits);
