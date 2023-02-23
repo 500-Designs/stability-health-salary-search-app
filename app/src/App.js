@@ -3,7 +3,7 @@ import s from "./styles/App.module.scss";
 import axios from "axios";
 import SearchResults from "./components/SearchResults";
 import SearchFilter from "./components/SearchFilter";
-import JSONViewer from "./components/JSONViewer";
+import filtersData from "./components/filters.json";
 
 // const wpUrl = "https://stabhealthdev.wpengine.com";
 
@@ -38,10 +38,40 @@ export default function App() {
     stateCode: cityState || "",
   });
 
+  const [resultInfo, setResultInfo] = useState({
+    profession: "",
+    specialty: "",
+    state: "",
+  });
+
   useEffect(() => {
     setclininicalUnit(queryParams.specialtyId);
     setCityState(queryParams.stateCode);
-  }, [queryParams]);
+    let professionName = "";
+    let specialtyName = "";
+
+    if (professionClinicalUnits && professionId) {
+      const found = professionClinicalUnits.find(item => item.id === parseInt(professionId));
+      professionName = found.name ? found.name : "";
+    }
+
+    if (specialties && queryParams.specialtyId) {
+      const found = specialties.find(item => item.value === parseInt(queryParams.specialtyId));
+      console.log("specialtyId: ", queryParams.specialtyId);
+      console.log("found: ", found);
+      if (found) {
+        specialtyName = found.text ? found.text : "";
+      }
+    }
+
+    setResultInfo(
+      {
+        profession: professionName,
+        specialty: specialtyName,
+        state: cityState ? filtersData.us_states.find(state => state.abbreviation === cityState).name : ""
+      }
+    )
+  }, [queryParams, professionId, professionClinicalUnits, cityState, specialties]);
 
   useEffect(() => {
     const getSpecialties = (id) => {
@@ -50,10 +80,10 @@ export default function App() {
       return res ? res.specialties : shClinicalUnits;
     };
 
-    if (options && professionClinicalUnits) {
+    if (options && professionId > 0) {
       setSpecialties(getSpecialties(professionId));
     }
-  }, [options, professionClinicalUnits, professionId]);
+  }, [options, professionClinicalUnits, professionId, shClinicalUnits]);
 
 
   useEffect(() => {
@@ -66,6 +96,7 @@ export default function App() {
         if (res1.data.data.professionClinicalUnits) {
           setOptions(res1.data.data);
           setProfessionClinicalUnits(res1.data.data.professionClinicalUnits);
+          setSpecialties(res1.data.data.clinicalUnits);
         }
       } catch (e) {
         console.log(e);
@@ -134,7 +165,7 @@ export default function App() {
           {(loading && data) ?
             <div className="animated-loader"></div>
             :
-            <SearchResults data={data} loading={loading}/>
+            <SearchResults data={data} loading={loading} resultInfo={resultInfo} />
           }
         </div>
       </section>

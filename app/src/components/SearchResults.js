@@ -1,14 +1,15 @@
 import React from "react";
 import s from "./SearchResults.module.scss";
 
-function SearchResults({ data, loading }) {
-  console.log("SearchResults loading: ", loading);
-  console.log("SearchResults data:", data);
+function SearchResults({ data, loading, resultInfo }) {
+  console.log("SearchResults resultInfo:", resultInfo);
+  const { profession, specialty, state } = resultInfo;
+
   return (
     <div className={s.SearchResults}>
       <h5 style={{ display: "block" }}>
-        <b>All Professions</b> working in <b>All Specialties Salary</b> in{" "}
-        <b>All States</b>
+        <b>{profession ? profession : "All Professions"}</b> working in <b>{specialty ? specialty : "All Specialities"} Salary</b> in{" "}
+        <b>{state ? state : "All States"}</b>
       </h5>
       <table>
         <thead>
