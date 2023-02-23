@@ -2,6 +2,8 @@ import React from "react";
 import s from "./SearchResults.module.scss";
 
 function SearchResults({ data, loading }) {
+  console.log("SearchResults loading: ", loading);
+  console.log("SearchResults data:", data);
   return (
     <div className={s.SearchResults}>
       <h5 style={{ display: "block" }}>
@@ -22,7 +24,7 @@ function SearchResults({ data, loading }) {
           {loading ?
             <tr><td colSpan="5"><div className="animated-loader"></div></td></tr>
             :
-            (data ?
+            (data.length > 0 ?
               data.map((item, index) => (
                 <DataRow itemData={item} key={index} />
               ))

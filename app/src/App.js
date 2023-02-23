@@ -59,7 +59,6 @@ export default function App() {
   useEffect(() => {
     // refetch options from API
     const reloadOptions = async () => {
-      // setLoading(true);
       try {
         const res1 = await axios.get(
           `${wpUrl}/wp-admin/admin-ajax.php?action=sh_all_options`
@@ -71,7 +70,7 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
