@@ -27,7 +27,7 @@ function SearchFilter({ professions, specialties, professionId, setProfessionId,
           <option value="">All Professions</option>
           {professions &&
             professions.map((item, index) => 
-            <option value={item.id} key={index}>{item.name}</option>
+            <option value={item.value} key={index}>{item.text}</option>
           )}
         </select>
         <select value={value2 || ""} className={value2 ? 'has-value' : ''} onChange={(e) => setValue2(e.target.value)}>

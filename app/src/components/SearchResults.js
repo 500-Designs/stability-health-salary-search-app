@@ -2,7 +2,6 @@ import React from "react";
 import s from "./SearchResults.module.scss";
 
 function SearchResults({ data, loading, resultInfo }) {
-  console.log("SearchResults resultInfo:", resultInfo);
   const { profession, specialty, state } = resultInfo;
 
   return (

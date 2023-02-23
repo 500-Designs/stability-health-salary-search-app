@@ -20,15 +20,16 @@ export default function App() {
     wpUrl = "https://stability-health.local";
   }
 
+  const [professionClinicalUnits, setProfessionClinicalUnits] = useState(shProfessionClinicalUnits || []);
+  const [specialties, setSpecialties] = useState(shClinicalUnits || null);
+
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState(shAllOPtions || []);
   
   const [data, setData] = useState([]);
 
   const [professionId, setProfessionId] = useState(null);
-  const [specialties, setSpecialties] = useState(shClinicalUnits || null);
 
-  const [professionClinicalUnits, setProfessionClinicalUnits] = useState(shProfessionClinicalUnits || []);
 
   const [clininicalUnit, setclininicalUnit] = useState("");
   const [cityState, setCityState] = useState(shLocation || "");
@@ -51,14 +52,14 @@ export default function App() {
     let specialtyName = "";
 
     if (professionClinicalUnits && professionId) {
-      const found = professionClinicalUnits.find(item => item.id === parseInt(professionId));
-      professionName = found.name ? found.name : "";
+      const found = professionClinicalUnits.find(item => item.value === parseInt(professionId));
+      if (found) {
+        professionName = found.text;
+      }
     }
 
     if (specialties && queryParams.specialtyId) {
       const found = specialties.find(item => item.value === parseInt(queryParams.specialtyId));
-      console.log("specialtyId: ", queryParams.specialtyId);
-      console.log("found: ", found);
       if (found) {
         specialtyName = found.text ? found.text : "";
       }
@@ -76,8 +77,7 @@ export default function App() {
   useEffect(() => {
     const getSpecialties = (id) => {
       const res = professionClinicalUnits[id-1];
-      // const res = professionClinicalUnits.filter((item) => item.id === id);
-      return res ? res.specialties : shClinicalUnits;
+      return res ? res.clinical_units : shClinicalUnits;
     };
 
     if (options && professionId > 0) {
