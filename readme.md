@@ -9,7 +9,7 @@
 - The widget has no editable features just default elementor styling options for background and padding
 
 
-- preview: ![widget preview](relative/path/to/image.png)
+- preview: ![widget preview](https://github.com/jamesdev500/stability-health-salary-search-app/blob/abeebde9253989a004264f7a01d304b5b27ebad7/preview.png)
 
 - the widget pulls jobs data realtime from client's API as follows:
 	1. API End Point for Jobs: https://stabilityhealthcare.com/budenurse/jobs/list?clinical_unit=12&city_state=CA
