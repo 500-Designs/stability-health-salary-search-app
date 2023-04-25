@@ -11,6 +11,8 @@
 
 - preview: ![widget preview](https://github.com/jamesdev500/stability-health-salary-search-app/blob/abeebde9253989a004264f7a01d304b5b27ebad7/preview.png)
 
+- styling as seen the preview are included in the app, but may be affected any matching !important declarations from the wordpress site where the plugin is installed
+
 - the widget pulls jobs data realtime from client's API as follows:
 	1. API End Point for Jobs: https://stabilityhealthcare.com/budenurse/jobs/list?clinical_unit=12&city_state=CA
 		- (It takes in 2 variables, clinical_unit[] and city_state, clinical_unit must be id of our specialties and city_state must be 2 character abbreviations of state name)
