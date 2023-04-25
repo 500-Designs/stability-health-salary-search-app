@@ -9,7 +9,8 @@
 - The widget has no editable features just default elementor styling options for background and padding
 
 
-- preview: ![widget preview](https://github.com/jamesdev500/stability-health-salary-search-app/blob/abeebde9253989a004264f7a01d304b5b27ebad7/preview.png)
+- preview: 
+	![widget preview](https://github.com/jamesdev500/stability-health-salary-search-app/blob/abeebde9253989a004264f7a01d304b5b27ebad7/preview.png)
 
 - styling as seen the preview are included in the app, but may be affected any matching !important declarations from the wordpress site where the plugin is installed
 
