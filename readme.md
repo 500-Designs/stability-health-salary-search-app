@@ -2,9 +2,8 @@
 
 # stability-health-salary-search-app
 
-  
-
 - A Wordpress plugin that adds new elementor widget named "SH Salary Search"
+- Af of writing the widget is added here: https://stabhealthdev.wpengine.com/salary-guide/ 
 - The widget has no editable features just default elementor styling options for background and padding
 - Preview: 
 	
@@ -23,3 +22,5 @@
 - package contains react app in 'app' folder just run `npm install` and `npm start` to start modifying
 
 - more details of the app are in app/readme.md file
+
+
